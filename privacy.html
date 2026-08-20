@@ -5,203 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — Crestward Labs</title>
 <meta name="description" content="Privacy policy for crestwardlabs.com. We use one analytics cookie, only after your consent.">
+<meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://crestwardlabs.com/privacy">
-<link rel="icon" type="image/png" href="logo-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: #080C18; color: #fff; font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  a { color: #4580FF; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  nav {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(8,12,24,0.96);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: 0 clamp(20px, 5vw, 64px);
-    height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  nav img { height: 34px; width: auto; display: block; }
-
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 40px) clamp(80px, 10vw, 120px);
-  }
-
-  .eyebrow {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #4580FF;
-    margin-bottom: 16px;
-  }
-
-  h1 {
-    font-size: clamp(28px, 5vw, 44px);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    color: #fff;
-    margin: 0 0 12px;
-  }
-
-  .last-updated {
-    font-size: 13px;
-    color: rgba(255,255,255,0.35);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    margin-bottom: 48px;
-  }
-
-  h2 {
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: #fff;
-    margin: 40px 0 12px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.07);
-  }
-  h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-
-  p {
-    font-size: 15.5px;
-    line-height: 1.75;
-    color: rgba(255,255,255,0.6);
-    margin: 0 0 16px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0 24px;
-    font-size: 14px;
-  }
-  th {
-    text-align: left;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.04);
-    color: rgba(255,255,255,0.5);
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  td {
-    padding: 11px 14px;
-    color: rgba(255,255,255,0.65);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    vertical-align: top;
-    line-height: 1.6;
-  }
-  tr:last-child td { border-bottom: none; }
-
-  .callout {
-    background: rgba(29,95,250,0.08);
-    border: 1px solid rgba(29,95,250,0.22);
-    border-radius: 10px;
-    padding: 18px 22px;
-    margin: 24px 0;
-    font-size: 14.5px;
-    line-height: 1.65;
-    color: rgba(255,255,255,0.65);
-  }
-  .callout strong { color: #fff; }
-
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding: 28px clamp(20px, 5vw, 64px);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.35);
-  }
-</style>
+<link rel="icon" type="image/png" href="/logo-icon.png">
+<link rel="apple-touch-icon" href="/logo-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/archivo-latin.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/page.css">
 </head>
 <body>
 
-<nav>
-  <a href="/"><img src="logo.png" alt="Crestward Labs"></a>
-  <a href="/" style="font-size:14px; font-weight:500; color:rgba(255,255,255,0.7);">← Back to site</a>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <img src="/logo-icon.png" alt="">
+      <span>Crestward Labs</span>
+    </a>
+    <a href="/" class="nav-link">← Back to site</a>
+  </div>
 </nav>
 
-<div class="container">
-  <div class="eyebrow">Legal</div>
-  <h1>Privacy Policy</h1>
-  <div class="last-updated">Last updated: July 21, 2026</div>
+<div class="frame">
+  <div class="wrap">
+    <div class="badge">Legal</div>
+    <h1>Privacy Policy</h1>
+    <div class="meta">Last updated: July 21, 2026</div>
 
-  <div class="callout">
-    <strong>Short version:</strong> We use one analytics cookie (Google Analytics), and only after you click Accept. We don't sell your data. We don't run ads. We don't track you across other sites.
+    <div class="callout">
+      <strong>Short version:</strong> We use one analytics cookie (Google Analytics), and only after you click Accept. We don't sell your data. We don't run ads. We don't track you across other sites.
+    </div>
+
+    <h2>Who we are</h2>
+    <p>Crestward Labs is a software and agentic AI engineering practice based in Vancouver, BC, Canada. This policy covers <a href="https://crestwardlabs.com">crestwardlabs.com</a>.</p>
+    <p>Questions? Email us at <a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a>.</p>
+
+    <h2>What we collect and why</h2>
+    <p>We collect two categories of data on this site:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>What</th>
+          <th>Why</th>
+          <th>Consent required?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Analytics 4 (GA4)</td>
+          <td>Understand how many people visit the site, which pages they view, and where they come from — so we can improve the site.</td>
+          <td>Yes — only loads after you click Accept</td>
+        </tr>
+        <tr>
+          <td>Cookie consent preference<br><code>cw_cookie_consent</code></td>
+          <td>Remember whether you accepted or declined cookies, so we don't ask again on every visit.</td>
+          <td>No — this is strictly necessary to operate the banner</td>
+        </tr>
+        <tr>
+          <td>Chat session data</td>
+          <td>Store your chat conversation with the Crestward Assistant temporarily in your browser so the conversation stays intact while you browse.</td>
+          <td>No — stored only in your browser, not sent to us</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Google Analytics in detail</h2>
+    <p>If you accept cookies, we load Google Analytics 4 on your device. GA4 collects anonymised data including your approximate location (country/city level), browser type, device type, pages visited, and time spent on the site. We have enabled IP anonymisation, meaning your full IP address is never stored.</p>
+    <p>Google processes this data on our behalf. You can read Google's privacy policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a> and opt out of Google Analytics tracking across all sites at <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a>.</p>
+
+    <h2>What we do not do</h2>
+    <p>We do not sell, rent, or trade your personal data to third parties. We do not run advertising networks or retargeting campaigns. We do not use tracking pixels from social media platforms. We do not build profiles on individual visitors.</p>
+
+    <h2>Data retention</h2>
+    <p>Analytics data is retained in Google Analytics for 14 months, after which it is automatically deleted. Your cookie consent preference is stored in your browser's localStorage until you clear it or change your browser settings.</p>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you are located, you may have rights under applicable privacy law (PIPEDA in Canada, GDPR in the EU/UK, CCPA in California) including the right to access, correct, or delete data we hold about you.</p>
+    <p>Because we collect very limited personal data and only after consent, most requests can be handled simply by declining cookies or clearing your browser's localStorage. For anything else, contact us at <a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a> and we will respond within 30 days.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If we make material changes to this policy, we will update the "Last updated" date at the top of this page. We encourage you to review this page periodically.</p>
+
+    <h2>Contact</h2>
+    <p>Crestward Labs<br>Vancouver, BC, Canada<br><a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a></p>
   </div>
 
-  <h2>Who we are</h2>
-  <p>Crestward Labs is a software and agentic AI engineering practice based in Vancouver, BC, Canada. This policy covers <a href="https://crestwardlabs.com">crestwardlabs.com</a>.</p>
-  <p>Questions? Email us at <a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a>.</p>
-
-  <h2>What we collect and why</h2>
-  <p>We collect two categories of data on this site:</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>What</th>
-        <th>Why</th>
-        <th>Consent required?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Google Analytics 4 (GA4)</td>
-        <td>Understand how many people visit the site, which pages they view, and where they come from — so we can improve the site.</td>
-        <td>Yes — only loads after you click Accept</td>
-      </tr>
-      <tr>
-        <td>Cookie consent preference<br><code style="font-size:12px;opacity:0.7;">cw_cookie_consent</code></td>
-        <td>Remember whether you accepted or declined cookies, so we don't ask again on every visit.</td>
-        <td>No — this is strictly necessary to operate the banner</td>
-      </tr>
-      <tr>
-        <td>Chat session data</td>
-        <td>Store your chat conversation with the Crestward Assistant temporarily in your browser so the conversation stays intact while you browse.</td>
-        <td>No — stored only in your browser, not sent to us</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Google Analytics in detail</h2>
-  <p>If you accept cookies, we load Google Analytics 4 on your device. GA4 collects anonymised data including your approximate location (country/city level), browser type, device type, pages visited, and time spent on the site. We have enabled IP anonymisation, meaning your full IP address is never stored.</p>
-  <p>Google processes this data on our behalf. You can read Google's privacy policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a> and opt out of Google Analytics tracking across all sites at <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a>.</p>
-
-  <h2>What we do not do</h2>
-  <p>We do not sell, rent, or trade your personal data to third parties. We do not run advertising networks or retargeting campaigns. We do not use tracking pixels from social media platforms. We do not build profiles on individual visitors.</p>
-
-  <h2>Data retention</h2>
-  <p>Analytics data is retained in Google Analytics for 14 months, after which it is automatically deleted. Your cookie consent preference is stored in your browser's localStorage until you clear it or change your browser settings.</p>
-
-  <h2>Your rights</h2>
-  <p>Depending on where you are located, you may have rights under applicable privacy law (PIPEDA in Canada, GDPR in the EU/UK, CCPA in California) including the right to access, correct, or delete data we hold about you.</p>
-  <p>Because we collect very limited personal data and only after consent, most requests can be handled simply by declining cookies or clearing your browser's localStorage. For anything else, contact us at <a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a> and we will respond within 30 days.</p>
-
-  <h2>Changes to this policy</h2>
-  <p>If we make material changes to this policy, we will update the "Last updated" date at the top of this page. We encourage you to review this page periodically.</p>
-
-  <h2>Contact</h2>
-  <p>Crestward Labs<br>Vancouver, BC, Canada<br><a href="mailto:hello@crestwardlabs.com">hello@crestwardlabs.com</a></p>
+  <footer class="foot">
+    <span>© 2026 Crestward Labs · Vancouver, BC</span>
+    <a href="/">crestwardlabs.com</a>
+  </footer>
 </div>
-
-<footer>
-  <span>© 2026 Crestward Labs</span>
-  <a href="/">crestwardlabs.com</a>
-</footer>
 
 </body>
 </html>

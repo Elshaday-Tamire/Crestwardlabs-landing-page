@@ -1,0 +1,75 @@
+<!--
+  Hand-maintained <head> for crestwardlabs.com.
+
+  This file is the SEO / analytics / consent layer. It is NOT generated from the
+  design canvas — tools/bake.mjs injects it into index.html on every build, so a
+  redesign can be re-baked without losing any of it.
+
+  Placeholders filled by tools/bake.mjs:
+    <!--BAKE:CSS-->      inlined critical CSS (design/base.css + generated hover rules)
+    <!--BAKE:JSONLD-->   structured data from design/jsonld.html
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Crestward Labs | Agentic AI Systems &amp; Software Engineering</title>
+<meta name="description" content="Crestward Labs builds production-grade agentic AI systems and full-stack software. Multi-agent orchestration, RAG, MCP, SSE streaming — engineered for real workloads. Vancouver, BC.">
+<meta name="keywords" content="agentic AI, multi-agent systems, AI workflow automation, RAG, MCP, software engineering, Vancouver, Claude API, OpenAI, AI orchestration">
+<meta name="author" content="Crestward Labs">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://crestwardlabs.com/">
+
+<!-- Icons -->
+<link rel="icon" type="image/png" href="logo-icon.png">
+<link rel="apple-touch-icon" href="logo-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crestwardlabs.com/">
+<meta property="og:title" content="Crestward Labs | Agentic AI Systems &amp; Software Engineering">
+<meta property="og:description" content="We design and ship production-grade agentic AI systems: multi-agent orchestration, RAG pipelines, MCP tool integration, and real-time SSE streaming. Based in Vancouver, BC.">
+<meta property="og:image" content="https://crestwardlabs.com/linkedin-banner.png">
+<meta property="og:site_name" content="Crestward Labs">
+<meta property="og:locale" content="en_CA">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Crestward Labs | Agentic AI Systems &amp; Software Engineering">
+<meta name="twitter:description" content="Production-grade agentic AI systems: multi-agent orchestration, RAG, MCP, and SSE streaming. Based in Vancouver, BC.">
+<meta name="twitter:image" content="https://crestwardlabs.com/linkedin-banner.png">
+
+<!-- LLMs.txt discovery hint -->
+<link rel="alternate" type="text/plain" title="LLM context" href="/llms.txt">
+
+<!-- Self-hosted Archivo (one variable woff2, latin subset) — no third-party font hop -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-latin.woff2" crossorigin>
+<!-- Chat backend, warmed early so the first message is not gated on a cold TLS handshake -->
+<link rel="preconnect" href="https://agenthub.smartschema.io" crossorigin>
+
+<style><!--BAKE:CSS--></style>
+
+<!--BAKE:JSONLD-->
+
+<!-- Google Analytics 4 — loaded only after explicit consent (see assets/app.js) -->
+<script>
+  window._gaId = 'G-7WJCJ3E5WH';
+  window._gaLoaded = false;
+  window._loadGA = function () {
+    if (window._gaLoaded) return;
+    window._gaLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window._gaId;
+    s.async = true;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', window._gaId, { anonymize_ip: true });
+  };
+  try {
+    if (localStorage.getItem('cw_cookie_consent') === 'accepted') window._loadGA();
+  } catch (e) {}
+</script>
+
+<script src="assets/app.js" defer></script>

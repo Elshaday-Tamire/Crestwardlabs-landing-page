@@ -1,0 +1,22 @@
+# GitHub Pages (Jekyll) build configuration.
+#
+# The site is plain static files — nothing here is templated. This config exists
+# only to keep build sources out of the published site: without it, Jekyll
+# copies every top-level directory that does not start with an underscore, so
+# design/ and tools/ would be fetchable at crestwardlabs.com/design/... They
+# stay in git (index.html and assets/app.js are generated from design/, and
+# tools/bake.mjs is what generates them) — they just are not deployed.
+#
+# Note: setting `exclude` REPLACES Jekyll's default list, so the defaults worth
+# keeping are repeated below.
+exclude:
+  - design
+  - tools
+  - .gitignore
+  # Jekyll defaults, restored
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - .sass-cache
+  - .jekyll-cache

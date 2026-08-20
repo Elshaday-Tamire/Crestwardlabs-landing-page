@@ -1,0 +1,94 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Deliberate deviations from the design canvas, appended AFTER the design's
+   own <style> block so these win. Each one is a bug fix or the static
+   replacement for something the React runtime used to do at runtime.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* 1. The design sets `overflow-x: hidden` on BOTH html and body. html's value
+      propagates to the viewport, which leaves body with a non-visible
+      overflow-x of its own — and that makes *body* a scroll container.
+      Consequences: documentElement.scrollHeight caps at the viewport height,
+      position:sticky and 100svh get measured against the wrong box, and
+      mobile browsers lose native scroll optimisation and URL-bar collapse.
+      `clip` blocks the same horizontal overflow without creating a scroller,
+      so the document scrolls the document again. */
+body { overflow-x: clip; }
+
+/* 2. `hidden` must actually hide. Nearly every element on this page carries an
+      inline `display:` value, and an inline style beats the UA's
+      [hidden]{display:none}. */
+[hidden] { display: none !important; }
+
+/* 3. Nav: the runtime swapped desktop links for a burger by re-rendering on a
+      `window.innerWidth < 1000` resize listener. That is a media query. Doing
+      it in CSS means the correct nav paints on the first frame instead of
+      after JS boots, and costs zero JS.
+      `!important` because both elements carry an inline `display: flex`. */
+@media (min-width: 1000px) {
+  .cw-nav-desktop { display: flex !important; }
+  .cw-nav-burger  { display: none !important; }
+  .cw-nav-menu    { display: none !important; }
+}
+@media (max-width: 999px) {
+  .cw-nav-desktop { display: none !important; }
+  .cw-nav-burger  { display: flex !important; }
+}
+
+/* 5. The design export's <html> carries no `lang`. This page sets lang="en"
+      (screen readers and search engines both need it), and that flips
+      Chromium's -webkit-locale from `auto` to `en`, which changes the metrics
+      it uses to resolve `line-height: normal` on a <select> — the contact
+      form's dropdown came out 42px instead of the 46px the design was
+      reviewed at, shortening the whole contact section by 4px.
+      Pinning the line-height reproduces the reviewed height exactly and makes
+      it independent of locale and platform. */
+#cw-form-live select { line-height: 20px; }
+
+/* 6. Wide-screen scaling.
+      The design is a fixed 1280px canvas: two containers cap at max-width
+      1280px and nearly every clamp() has topped out by ~1400px of viewport.
+      On a 1920px display that leaves the site sitting in the middle 67% at
+      design size, and on a 2560px one, half the screen.
+
+      Rather than widening the column — which would stretch line lengths and
+      grid ratios the design was never reviewed at — scale the whole canvas.
+      Type, spacing, borders and rhythm all grow together, so the proportions
+      stay exactly as designed. 1920px lands on 1.5×, which is the browser-zoom
+      level the layout was signed off at.
+
+      Browsers without `zoom` (none current) simply get the centred 1280px
+      layout, which is the pre-change behaviour — it degrades, it never breaks. */
+/* The reference width the canvas is scaled against. The design itself is a
+   1280px canvas; scaling against a slightly wider reference leaves the frame
+   sitting in a column with air either side, at ~89% of the viewport, rather
+   than pressed edge to edge. THIS IS THE DIAL: lower it to make the site
+   bigger, raise it to make it smaller. */
+:root { --cw-canvas: 1440px; }
+
+:root { --cw-zoom: 1; }
+@media (min-width: 1500px) { :root { --cw-zoom: 1.05; } }
+@media (min-width: 1750px) { :root { --cw-zoom: 1.20; } }
+@media (min-width: 1900px) { :root { --cw-zoom: 1.32; } }
+@media (min-width: 2300px) { :root { --cw-zoom: 1.60; } }
+@media (min-width: 2800px) { :root { --cw-zoom: 2.00; } }
+
+/* Preferred: scale continuously so the canvas maps onto the viewport at every
+   width, with no banding between steps. Capped at 2 so an ultrawide gets a
+   large canvas rather than an absurd one, and floored at 1 so narrow viewports
+   are never scaled DOWN. @supports gates it on the engine actually computing
+   length / length; anything that cannot falls back to the stepped values. */
+@supports (width: calc(100vw / 1440px * 1px)) {
+  :root { --cw-zoom: clamp(1, calc(100vw / var(--cw-canvas)), 2); }
+}
+
+:root { zoom: var(--cw-zoom); }
+
+/* `zoom` scales px values exactly like browser zoom does, but viewport units
+   are still resolved against the real, unzoomed viewport — so anything sized
+   in vh has to be divided by the same factor or it comes out oversized. The
+   hero is the only one that binds: without this it grows from 800px to a
+   full-bleed 1080px on a 1080p screen. !important because it is an inline
+   style on the element. */
+main#top > header:first-of-type {
+  min-height: clamp(460px, calc(74vh / var(--cw-zoom)), 720px) !important;
+}

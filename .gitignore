@@ -1,0 +1,4 @@
+# pixel-parity screenshots produced by tools/shot.mjs
+shots/
+# playwright, linked in ad hoc when running the verification tools
+node_modules/
