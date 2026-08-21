@@ -22,7 +22,12 @@ import { WorkerMailer } from "worker-mailer";
    they're the same machine — both are here since `python3 -m http.server`
    answers to either depending on what you type in the address bar. Remove
    both once done testing locally, same as before. */
-const ALLOWED_ORIGINS = ["https://crestwardlabs.com", "http://localhost:8000", "http://127.0.0.1:8000"];
+const ALLOWED_ORIGINS = [
+  "https://crestwardlabs.com",
+  "https://flowstudio-ai.com",
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+];
 
 const LIMITS = { name: 100, email: 200, topic: 100, message: 5000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -85,7 +90,9 @@ function validate(data) {
   const topic = String(data.topic || "").trim();
   const message = String(data.message || "").trim();
 
-  if (!name || !email || !message) return "missing required field";
+  // `name` is optional — FlowStudio's contact form only collects an email
+  // and a use-case, unlike Crestward's form which always sends a name.
+  if (!email || !message) return "missing required field";
   if (!EMAIL_RE.test(email)) return "invalid email";
   if (name.length > LIMITS.name) return "name too long";
   if (email.length > LIMITS.email) return "email too long";
@@ -136,12 +143,15 @@ export default {
     const problem = validate(data);
     if (problem) return json({ ok: false, error: problem }, 400, origin);
 
-    const name = String(data.name).trim();
+    const name = String(data.name || "").trim() || "(not provided)";
     const email = String(data.email).trim();
     const topic = String(data.topic || "General").trim();
     const message = String(data.message).trim();
     const honeypot = String(data.company || "").trim();
     const elapsedMs = Number(data.elapsedMs) || 0;
+    // Which site this came in from — only changes the subject/from line so a
+    // FlowStudio lead doesn't read as a generic Crestward inquiry in the inbox.
+    const isFlowStudio = String(data.source || "").trim().toLowerCase() === "flowstudio";
 
     // Bot-shaped submission: respond exactly like a real success, send nothing.
     if (honeypot || elapsedMs < MIN_FILL_MS) {
@@ -165,10 +175,10 @@ export default {
         // Most SMTP providers reject a From that isn't the authenticated
         // account, so the visitor's address goes in `reply` instead — hit
         // reply in your inbox and it goes straight to them.
-        from: { name: "Crestward Labs website", email: env.SMTP_USER },
+        from: { name: isFlowStudio ? "FlowStudio website" : "Crestward Labs website", email: env.SMTP_USER },
         to: { email: env.MAIL_TO || env.SMTP_USER },
         reply: { name, email },
-        subject: "Project inquiry: " + topic,
+        subject: (isFlowStudio ? "[FlowStudio] " : "") + "Project inquiry: " + topic,
         text:
           "Name: " +
           name +
