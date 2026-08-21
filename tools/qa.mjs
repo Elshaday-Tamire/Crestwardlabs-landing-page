@@ -55,12 +55,27 @@ ok((await page.locator('[role="dialog"]').innerText()).includes('Crestward Assis
 await page.locator('[role="dialog"] button[aria-label="Close chat"]').click();
 await page.waitForTimeout(400);
 
-/* contact form */
-await page.fill('#v2-name','Jane'); await page.fill('#v2-email','jane@x.com'); await page.fill('#v2-msg','Hello');
-await page.locator('button[type="submit"]').click();
-await page.waitForTimeout(400);
-ok(await page.locator('#cw-form-sent').isVisible(), 'form swaps to sent state');
-ok(!(await page.locator('#cw-form-live').isVisible()), 'form hidden after submit');
+/* contact form — honeypot + placeholder-endpoint fallback */
+{
+  const hp = page.locator('input[name="company"]');
+  ok(await hp.count() === 1, 'honeypot field injected into the form');
+  const hpStyle = await hp.evaluate((el) => {
+    const cs = getComputedStyle(el);
+    return { opacity: cs.opacity, position: cs.position, ariaHidden: el.getAttribute('aria-hidden'), tabIndex: el.tabIndex };
+  });
+  ok(hpStyle.opacity === '0' && hpStyle.position === 'absolute', 'honeypot is visually hidden (opacity 0, positioned off-canvas)');
+  ok(hpStyle.tabIndex === -1, 'honeypot is not tabbable');
+  ok(hpStyle.ariaHidden === 'true', 'honeypot is aria-hidden');
+
+  const fetchesToWorker = [];
+  page.on('request', (r) => { if (r.url().indexOf('workers.dev') !== -1) fetchesToWorker.push(r.url()); });
+  await page.fill('#v2-name','Jane'); await page.fill('#v2-email','jane@x.com'); await page.fill('#v2-msg','Hello');
+  await page.locator('button[type="submit"]').click();
+  await page.waitForTimeout(400);
+  ok(fetchesToWorker.length === 0, 'no fetch() attempted while CONTACT_ENDPOINT is still the placeholder');
+  ok(await page.locator('#cw-form-sent').isVisible(), 'falls back to the sent state via mailto');
+  ok(!(await page.locator('#cw-form-live').isVisible()), 'form hidden after submit');
+}
 ok(await page.evaluate(()=>document.querySelectorAll('nav .cw-nav-desktop').length===1 && getComputedStyle(document.querySelector('.cw-nav-desktop')).display==='flex'), 'desktop nav links visible at 1280');
 ok(await page.evaluate(()=>getComputedStyle(document.querySelector('.cw-nav-burger')).display==='none'), 'burger hidden at 1280');
 await ctx.close();

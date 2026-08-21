@@ -13,6 +13,11 @@
   var $ = function (id) { return document.getElementById(id); };
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Set by worker/README.md step 5 after `wrangler deploy` prints the real
+     URL. Left as the placeholder, the form just falls back to mailto — the
+     site never ships in a half-wired state. */
+  var CONTACT_ENDPOINT = 'https://crestward-contact.crestward-landing-contact.workers.dev';
+
   /* ── canvas fields ───────────────────────────────────────────────────── */
 
   var raf = null;
@@ -199,21 +204,83 @@
     });
   }
 
-  /* ── contact form → mailto ───────────────────────────────────────────── */
+  /* ── contact form → Worker (falls back to mailto) ───────────────────── */
 
   function mountForm() {
     var form = document.querySelector('[data-cw-submit]');
     if (!form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var get = function (n) { return form.elements[n] && form.elements[n].value ? form.elements[n].value : ''; };
+
+    /* How long the form sat on the page before submit. A real visitor reads
+       the fields for at least a couple of seconds; a bot that fills and
+       submits a freshly-loaded form in milliseconds gets silently dropped
+       server-side (see worker/src/index.js) without ever finding out it was
+       caught. */
+    var mountedAt = Date.now();
+
+    /* A field no sighted visitor can reach or see, but a bot filling every
+       input on the page will. Added here rather than in the design canvas
+       markup so the anti-spam mechanism survives a future design re-bake
+       untouched, and stays purely behavioural. */
+    var honeypot = document.createElement('input');
+    honeypot.type = 'text';
+    honeypot.name = 'company';
+    honeypot.tabIndex = -1;
+    honeypot.autocomplete = 'off';
+    honeypot.setAttribute('aria-hidden', 'true');
+    honeypot.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+    form.appendChild(honeypot);
+
+    var get = function (n) { return form.elements[n] && form.elements[n].value ? form.elements[n].value : ''; };
+
+    var showSent = function () {
+      var live = $('cw-form-live'), sent = $('cw-form-sent');
+      if (live) live.hidden = true;
+      if (sent) sent.hidden = false;
+    };
+
+    var sendViaMailto = function () {
       var body = 'Name: ' + get('name') + '\nEmail: ' + get('email') + '\nNeed: ' + get('topic') + '\n\n' + get('message');
       window.location.href = 'mailto:hello@crestwardlabs.com?subject='
         + encodeURIComponent('Project inquiry: ' + get('topic'))
         + '&body=' + encodeURIComponent(body);
-      var live = $('cw-form-live'), sent = $('cw-form-sent');
-      if (live) live.hidden = true;
-      if (sent) sent.hidden = false;
+      showSent();
+    };
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      /* Not deployed yet (see worker/README.md) — behave exactly as before
+         rather than fail against a placeholder URL. */
+      if (!CONTACT_ENDPOINT || CONTACT_ENDPOINT.indexOf('REPLACE-ME') !== -1) {
+        sendViaMailto();
+        return;
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        var res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: get('name'),
+            email: get('email'),
+            topic: get('topic'),
+            message: get('message'),
+            company: get('company'),
+            elapsedMs: Date.now() - mountedAt
+          })
+        });
+        if (!res.ok) throw new Error('bad response');
+        showSent();
+      } catch (err) {
+        /* Worker unreachable or erroring — the form must never be worse
+           than it was before this existed. */
+        sendViaMailto();
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 

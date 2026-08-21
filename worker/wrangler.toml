@@ -1,0 +1,16 @@
+# Cloudflare Worker deployment config. Safe to commit — no secrets live here.
+# Secrets (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, MAIL_TO) are set with
+# `wrangler secret put <NAME>` — see README.md.
+name = "crestward-contact"
+main = "src/index.js"
+compatibility_date = "2026-08-21"
+
+# worker-mailer needs cloudflare:sockets, which needs Node compatibility mode.
+compatibility_flags = ["nodejs_compat"]
+
+# Per-IP rate limit counter (README.md step 2). The id below is a placeholder —
+# `wrangler kv namespace create` prints the real one to paste in here. Not a
+# secret: a KV namespace id only identifies the store, it grants no access.
+[[kv_namespaces]]
+binding = "crestward_contact_ratelimit"
+id = "f7195c8cb4d743c0b2ddccd7f21be0ac"

@@ -7,11 +7,15 @@
 # stay in git (index.html and assets/app.js are generated from design/, and
 # tools/bake.mjs is what generates them) — they just are not deployed.
 #
+# worker/ is the contact-form backend's source (see worker/README.md) — it
+# deploys separately to Cloudflare via `wrangler deploy`, not via this site.
+#
 # Note: setting `exclude` REPLACES Jekyll's default list, so the defaults worth
 # keeping are repeated below.
 exclude:
   - design
   - tools
+  - worker
   - .gitignore
   # Jekyll defaults, restored
   - node_modules
