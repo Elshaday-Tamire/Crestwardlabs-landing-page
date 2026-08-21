@@ -1,0 +1,14 @@
+# Cloudflare Worker deployment config. Safe to commit — no secrets live here.
+# Secrets (AGENTHUB_API_KEY) are set with `wrangler secret put` — see README.md.
+name = "crestward-chat"
+main = "src/index.js"
+compatibility_date = "2026-08-21"
+
+# Per-IP rate limit counter (README.md). The id below is a placeholder —
+# `wrangler kv namespace create` prints the real one to paste in here. Not a
+# secret: a KV namespace id only identifies the store, it grants no access.
+# A separate namespace from the contact form's — keeps the two Workers'
+# limits independent.
+[[kv_namespaces]]
+binding = "crestward_chat_ratelimit"
+id = "fec2b604181948e4922b024bf199fc73"

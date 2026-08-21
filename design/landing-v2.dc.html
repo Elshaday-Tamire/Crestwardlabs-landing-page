@@ -1,146 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Crestward Labs | Agentic AI Systems &amp; Software Engineering</title>
-<meta name="description" content="Crestward Labs builds production-grade agentic AI systems and full-stack software. Multi-agent orchestration, RAG, MCP, SSE streaming — engineered for real workloads. Vancouver, BC.">
-<meta name="keywords" content="agentic AI, multi-agent systems, AI workflow automation, RAG, MCP, software engineering, Vancouver, Claude API, OpenAI, AI orchestration">
-<meta name="author" content="Crestward Labs">
-<meta name="theme-color" content="#000000">
-<link rel="canonical" href="https://crestwardlabs.com/">
-
-<!-- Icons -->
-<link rel="icon" type="image/png" href="logo-icon.png">
-<link rel="apple-touch-icon" href="logo-icon.png">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://crestwardlabs.com/">
-<meta property="og:title" content="Crestward Labs | Agentic AI Systems &amp; Software Engineering">
-<meta property="og:description" content="We design and ship production-grade agentic AI systems: multi-agent orchestration, RAG pipelines, MCP tool integration, and real-time SSE streaming. Based in Vancouver, BC.">
-<meta property="og:image" content="https://crestwardlabs.com/linkedin-banner.png">
-<meta property="og:site_name" content="Crestward Labs">
-<meta property="og:locale" content="en_CA">
-
-<!-- Twitter / X card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Crestward Labs | Agentic AI Systems &amp; Software Engineering">
-<meta name="twitter:description" content="Production-grade agentic AI systems: multi-agent orchestration, RAG, MCP, and SSE streaming. Based in Vancouver, BC.">
-<meta name="twitter:image" content="https://crestwardlabs.com/linkedin-banner.png">
-
-<!-- LLMs.txt discovery hint -->
-<link rel="alternate" type="text/plain" title="LLM context" href="/llms.txt">
-
-<!-- Self-hosted Archivo (one variable woff2, latin subset) — no third-party font hop -->
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-latin.woff2" crossorigin>
-<!-- Chat backend, warmed early so the first message is not gated on a cold TLS handshake -->
-<link rel="preconnect" href="https://agenthub.smartschema.io" crossorigin>
-
-<style>
-/* design-system base (trimmed) */
-
-/* ─────────────────────────────────────────────────────────────────────────
-   Modernist design-system base — trimmed.
-
-   The landing page styles every element inline and uses ZERO design-system
-   class names, so only the base layer below can ever apply. The ~8KB of
-   .btn / .card / .input / .table / .dialog / .tag / .nav rules from the full
-   _ds/modernist/styles.css are dropped as dead weight.
-
-   Everything kept here is byte-faithful to the original so the baked page
-   renders identically to the design canvas. Do not "tidy" the h1–h6 sizes or
-   the token values: elements without an inline override inherit them.
-   ───────────────────────────────────────────────────────────────────────── */
-
-/* Archivo, self-hosted. Google serves ONE variable woff2 per subset and
-   declares it three times at discrete weights — mirrored exactly here.
-
-   This matters for pixel-parity: the page asks for font-weight:700 in 68
-   places, and with only 400/600/800 declared, CSS font matching resolves 700
-   to the 800 face. Declaring a `100 900` variable range instead would render
-   true 700 and visibly lighten the whole page. */
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(assets/fonts/archivo-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(assets/fonts/archivo-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url(assets/fonts/archivo-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-:root {
-  --color-bg: #f3f2f2;
-  --color-surface: #eae9e9;
-  --color-text: #201e1d;
-  --color-accent: #ec3013;
-  --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
-
-  --font-heading: "Archivo", system-ui, sans-serif;
-  --font-heading-weight: 800;
-  --font-body: "Archivo", system-ui, sans-serif;
-
-  --space-1: 4.0px;
-  --space-2: 8.0px;
-  --space-3: 12.0px;
-  --space-4: 16.0px;
-  --space-6: 24.0px;
-  --space-8: 32.0px;
-}
-
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
-  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
-}
-h1 { font-size: 42px; }
-h2 { font-size: 32px; }
-h3 { font-size: 25px; }
-h4 { font-size: 20px; }
-h5 { font-size: 16px; }
-h6 { font-size: 13px; }
-h6 { letter-spacing: 0.08em; text-transform: uppercase; }
-p { margin: 0 0 var(--space-3); }
-a { color: var(--color-accent); text-underline-offset: 3px; }
-img { display: block; max-width: 100%; }
-figure { margin: 0; }
-figcaption {
-  font-size: 11px; margin-top: var(--space-1);
-  color: color-mix(in srgb, var(--color-text) 55%, transparent);
-}
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
-:focus { outline: none; }
-:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
-
-
-/* page styles, verbatim from the design export */
-
-:root {
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Crestward Labs | Agentic AI Systems &amp; Software Engineering</title>
+  <meta name="description" content="Crestward Labs builds production-grade agentic AI systems and full-stack software. Multi-agent orchestration, RAG, MCP, SSE streaming. Vancouver, BC.">
+  <link rel="canonical" href="https://crestwardlabs.com/">
+  <link rel="icon" type="image/png" href="logo-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://crestwardlabs.com/">
+  <meta property="og:title" content="Crestward Labs | Agentic AI Systems &amp; Software Engineering">
+  <meta property="og:description" content="Production-grade agentic AI systems: multi-agent orchestration, RAG, MCP and real-time streaming. Vancouver, BC.">
+  <link rel="stylesheet" href="_ds/modernist-a5e070d0-1410-4762-a728-211e18ba001f/styles.css">
+  <script src="_ds/modernist-a5e070d0-1410-4762-a728-211e18ba001f/_ds_bundle.js"></script>
+  <style>
+    :root {
       --color-accent: #1D5FFA;
       --color-accent-600: #1A4FD0;
       --color-accent-700: #143FA6;
@@ -161,283 +40,46 @@ figcaption {
     @keyframes cw-msg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes cw-dot { 0%,80%,100% { transform: translateY(0); opacity: .4; } 40% { transform: translateY(-5px); opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; } }
+  </style>
+</helmet>
 
-/* generated from style-hover / style-focus, mirroring the runtime */
-
-.cw-s0:hover{background: rgba(232,227,217,0.18) !important; color: #ffffff !important}
-.cw-s1:hover{background: rgba(255,255,255,0.12) !important; color: #ffffff !important}
-.cw-s2:hover{background: #1A4FD0 !important; color: #ffffff !important}
-.cw-s3:hover{opacity: 0.82 !important; color: #ffffff !important}
-.cw-s4:hover{background: rgba(255,255,255,0.14) !important; color: #ffffff !important}
-.cw-s5:hover{background: #ffffff !important; color: #050508 !important}
-.cw-s6:hover{background: rgba(29,95,250,0.07) !important}
-.cw-s7:hover{background: rgba(232,227,217,0.06) !important; border-color: rgba(232,227,217,0.5) !important; color: #ffffff !important}
-.cw-s8:hover{color: #E8E3D9 !important}
-.cw-s9:focus{border-color: #1D5FFA !important}
-.cw-sa:hover{background: #1A4FD0 !important}
-.cw-sb:hover{color: #ffffff !important; background: rgba(255,255,255,0.08) !important}
-
-/* deliberate deviations */
-
-/* ─────────────────────────────────────────────────────────────────────────
-   Deliberate deviations from the design canvas, appended AFTER the design's
-   own <style> block so these win. Each one is a bug fix or the static
-   replacement for something the React runtime used to do at runtime.
-   ───────────────────────────────────────────────────────────────────────── */
-
-/* 1. The design sets `overflow-x: hidden` on BOTH html and body. html's value
-      propagates to the viewport, which leaves body with a non-visible
-      overflow-x of its own — and that makes *body* a scroll container.
-      Consequences: documentElement.scrollHeight caps at the viewport height,
-      position:sticky and 100svh get measured against the wrong box, and
-      mobile browsers lose native scroll optimisation and URL-bar collapse.
-      `clip` blocks the same horizontal overflow without creating a scroller,
-      so the document scrolls the document again. */
-body { overflow-x: clip; }
-
-/* 2. `hidden` must actually hide. Nearly every element on this page carries an
-      inline `display:` value, and an inline style beats the UA's
-      [hidden]{display:none}. */
-[hidden] { display: none !important; }
-
-/* 3. Nav: the runtime swapped desktop links for a burger by re-rendering on a
-      `window.innerWidth < 1000` resize listener. That is a media query. Doing
-      it in CSS means the correct nav paints on the first frame instead of
-      after JS boots, and costs zero JS.
-      `!important` because both elements carry an inline `display: flex`. */
-@media (min-width: 1000px) {
-  .cw-nav-desktop { display: flex !important; }
-  .cw-nav-burger  { display: none !important; }
-  .cw-nav-menu    { display: none !important; }
-}
-@media (max-width: 999px) {
-  .cw-nav-desktop { display: none !important; }
-  .cw-nav-burger  { display: flex !important; }
-}
-
-/* 5. The design export's <html> carries no `lang`. This page sets lang="en"
-      (screen readers and search engines both need it), and that flips
-      Chromium's -webkit-locale from `auto` to `en`, which changes the metrics
-      it uses to resolve `line-height: normal` on a <select> — the contact
-      form's dropdown came out 42px instead of the 46px the design was
-      reviewed at, shortening the whole contact section by 4px.
-      Pinning the line-height reproduces the reviewed height exactly and makes
-      it independent of locale and platform. */
-#cw-form-live select { line-height: 20px; }
-
-/* 6. Wide-screen scaling.
-      The design is a fixed 1280px canvas: two containers cap at max-width
-      1280px and nearly every clamp() has topped out by ~1400px of viewport.
-      On a 1920px display that leaves the site sitting in the middle 67% at
-      design size, and on a 2560px one, half the screen.
-
-      Rather than widening the column — which would stretch line lengths and
-      grid ratios the design was never reviewed at — scale the whole canvas.
-      Type, spacing, borders and rhythm all grow together, so the proportions
-      stay exactly as designed. 1920px lands on 1.5×, which is the browser-zoom
-      level the layout was signed off at.
-
-      Browsers without `zoom` (none current) simply get the centred 1280px
-      layout, which is the pre-change behaviour — it degrades, it never breaks. */
-/* The reference width the canvas is scaled against. The design itself is a
-   1280px canvas; scaling against a slightly wider reference leaves the frame
-   sitting in a column with air either side, at ~89% of the viewport, rather
-   than pressed edge to edge. THIS IS THE DIAL: lower it to make the site
-   bigger, raise it to make it smaller. */
-:root { --cw-canvas: 1440px; }
-
-:root { --cw-zoom: 1; }
-@media (min-width: 1500px) { :root { --cw-zoom: 1.05; } }
-@media (min-width: 1750px) { :root { --cw-zoom: 1.20; } }
-@media (min-width: 1900px) { :root { --cw-zoom: 1.32; } }
-@media (min-width: 2300px) { :root { --cw-zoom: 1.60; } }
-@media (min-width: 2800px) { :root { --cw-zoom: 2.00; } }
-
-/* Preferred: scale continuously so the canvas maps onto the viewport at every
-   width, with no banding between steps. Capped at 2 so an ultrawide gets a
-   large canvas rather than an absurd one, and floored at 1 so narrow viewports
-   are never scaled DOWN. @supports gates it on the engine actually computing
-   length / length; anything that cannot falls back to the stepped values. */
-@supports (width: calc(100vw / 1440px * 1px)) {
-  :root { --cw-zoom: clamp(1, calc(100vw / var(--cw-canvas)), 2); }
-}
-
-:root { zoom: var(--cw-zoom); }
-
-/* `zoom` scales px values exactly like browser zoom does, but viewport units
-   are still resolved against the real, unzoomed viewport — so anything sized
-   in vh has to be divided by the same factor or it comes out oversized. The
-   hero is the only one that binds: without this it grows from 800px to a
-   full-bleed 1080px on a 1080p screen. !important because it is an inline
-   style on the element. */
-main#top > header:first-of-type {
-  min-height: clamp(460px, calc(74vh / var(--cw-zoom)), 720px) !important;
-}
-
-</style>
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is agentic AI?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Agentic AI refers to AI systems that don't just respond to prompts — they take a goal and execute: reasoning through steps, calling tools, handling failures, and delivering results autonomously. Unlike chatbots, agentic systems can browse the web, query databases, run code, and complete multi-step tasks without step-by-step human guidance."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is multi-agent orchestration?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Multi-agent orchestration is the coordination of multiple AI agents working together to complete complex tasks. Each agent specialises in a role — planner, executor, reviewer — and they communicate through shared memory and tool access. Crestward Labs engineers all orchestration patterns: sequential pipelines, parallel fan-out, hierarchical delegation, event-driven triggers, collaborative peer agents, and hybrid combinations."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What industries does Crestward Labs work with?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Crestward Labs works with founders, product teams, and CTOs across industries including professional services, legal, finance, operations, and SaaS. Our systems are industry-agnostic — if your business has repetitive knowledge work, document processing, data analysis, or multi-step approval workflows, we can automate it with agentic AI."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What AI models do you use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We build with Claude (Anthropic), GPT-4o (OpenAI), and open-weight models such as Llama and Mistral. The right model is selected per task based on cost, latency, capability, and data privacy requirements. We are model-agnostic and design systems that can swap or combine models without rebuilding the architecture."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is RAG and do you build RAG pipelines?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "RAG stands for Retrieval-Augmented Generation. It allows AI agents to search and retrieve information from your private documents, databases, or knowledge bases before generating a response — ensuring answers are grounded in your actual data rather than the model's training data alone. Yes, Crestward Labs designs and builds production RAG pipelines as part of agentic AI systems."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I get started with Crestward Labs?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Email hello@crestwardlabs.com with a brief description of what you are building or the problem you want to solve. We reply to every serious inquiry and will schedule a discovery call to understand your needs and determine whether we are the right fit."
-        }
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Crestward Labs",
-    "url": "https://crestwardlabs.com/",
-    "logo": "https://crestwardlabs.com/logo.png",
-    "image": "https://crestwardlabs.com/linkedin-banner.png",
-    "description": "Agentic AI systems and software engineering practice. We build production-grade multi-agent platforms with RAG, MCP, SSE streaming, and public APIs.",
-    "email": "hello@crestwardlabs.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Vancouver",
-      "addressRegion": "BC",
-      "addressCountry": "CA"
-    },
-    "areaServed": "Worldwide",
-    "serviceType": [
-      "Agentic AI Systems",
-      "Multi-Agent Orchestration",
-      "AI Workflow Automation",
-      "Software Engineering",
-      "RAG Pipeline Development",
-      "MCP Integration"
-    ],
-    "sameAs": [
-      "https://www.linkedin.com/company/crestward-labs",
-      "https://www.youtube.com/@CrestwardLabs"
-    ],
-    "knowsAbout": [
-      "Agentic AI",
-      "Multi-agent systems",
-      "Retrieval-Augmented Generation",
-      "Model Context Protocol",
-      "AI workflow orchestration",
-      "Large Language Models",
-      "FastAPI",
-      "TypeScript",
-      "Angular",
-      "PostgreSQL"
-    ]
-  }
-  </script>
-
-<!-- Google Analytics 4 — loaded only after explicit consent (see assets/app.js) -->
-<script>
-  window._gaId = 'G-7WJCJ3E5WH';
-  window._gaLoaded = false;
-  window._loadGA = function () {
-    if (window._gaLoaded) return;
-    window._gaLoaded = true;
-    var s = document.createElement('script');
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window._gaId;
-    s.async = true;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', window._gaId, { anonymize_ip: true });
-  };
-  try {
-    if (localStorage.getItem('cw_cookie_consent') === 'accepted') window._loadGA();
-  } catch (e) {}
-</script>
-
-<script src="assets/app.js" defer></script>
-</head>
-<body>
 <div style="font-family: 'Archivo', system-ui, sans-serif; color: #ffffff; background: #000000; min-height: 100vh;">
 
-  <nav id="cw-nav" style="position: sticky; top: 0; z-index: 80; background: rgba(0,0,0,0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+  <nav ref="{{ navRef }}" style="position: sticky; top: 0; z-index: 80; background: rgba(0,0,0,0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(14px, 3vw, 28px); height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
       <a href="#top" style="display: flex; align-items: center; gap: 9px; color: #ffffff;">
         <img src="logo-icon.png" alt="" style="height: 26px; width: 26px; object-fit: contain; display: block;">
         <span style="font-size: 14px; font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">Crestward Labs</span>
       </a>
-      
-        <div class="cw-nav-desktop" style="display: flex; align-items: center; gap: 7px;">
-          <a class="cw-s0" href="#flowstudio" style="border: 1px solid rgba(232,227,217,0.42); background: rgba(232,227,217,0.08); color: #E8E3D9; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;">FlowStudio</a>
-          <a class="cw-s1" href="#approach" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;">Approach</a>
-          <a class="cw-s1" href="#workflows" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;">Workflows</a>
-          <a class="cw-s1" href="#services" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;">Services</a>
-          <a class="cw-s2" href="#contact" style="display: inline-flex; align-items: center; gap: 9px; background: #1D5FFA; border: 1px solid #1D5FFA; color: #ffffff; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease;">
+      <sc-if value="{{ showLinks }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; align-items: center; gap: 7px;">
+          <a href="#flowstudio" style="border: 1px solid rgba(232,227,217,0.42); background: rgba(232,227,217,0.08); color: #E8E3D9; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;" style-hover="background: rgba(232,227,217,0.18); color: #ffffff;">FlowStudio</a>
+          <a href="#approach" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;" style-hover="background: rgba(255,255,255,0.12); color: #ffffff;">Approach</a>
+          <a href="#workflows" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;" style-hover="background: rgba(255,255,255,0.12); color: #ffffff;">Workflows</a>
+          <a href="#services" style="border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease, color 140ms ease;" style-hover="background: rgba(255,255,255,0.12); color: #ffffff;">Services</a>
+          <a href="#contact" style="display: inline-flex; align-items: center; gap: 9px; background: #1D5FFA; border: 1px solid #1D5FFA; color: #ffffff; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 13px; white-space: nowrap; transition: background 140ms ease;" style-hover="background: #1A4FD0; color: #ffffff;">
             Contact us
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
-      
-      
-        <button class="cw-nav-burger" data-act="toggle-menu" aria-label="Menu" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #ffffff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; padding: 0;">
+      </sc-if>
+      <sc-if value="{{ showBurger }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" aria-label="Menu" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #ffffff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; padding: 0;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
         </button>
-      
+      </sc-if>
     </div>
-    
-      <div id="cw-nav-menu" class="cw-nav-menu" hidden style="background: #000000; border-top: 1px solid rgba(255,255,255,0.12); animation: cw-sheet 160ms ease both;">
+    <sc-if value="{{ menuPanelOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background: #000000; border-top: 1px solid rgba(255,255,255,0.12); animation: cw-sheet 160ms ease both;">
         <div style="display: flex; flex-direction: column; padding: 6px clamp(14px, 3vw, 28px) 18px; gap: 7px;">
-          <a href="#flowstudio" data-act="close-menu" style="border: 1px solid rgba(232,227,217,0.42); color: #E8E3D9; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">FlowStudio</a>
-          <a href="#approach" data-act="close-menu" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Approach</a>
-          <a href="#workflows" data-act="close-menu" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Workflows</a>
-          <a href="#services" data-act="close-menu" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Services</a>
-          <a href="#contact" data-act="close-menu" style="background: #1D5FFA; color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Contact us</a>
+          <a href="#flowstudio" onClick="{{ closeMenu }}" style="border: 1px solid rgba(232,227,217,0.42); color: #E8E3D9; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">FlowStudio</a>
+          <a href="#approach" onClick="{{ closeMenu }}" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Approach</a>
+          <a href="#workflows" onClick="{{ closeMenu }}" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Workflows</a>
+          <a href="#services" onClick="{{ closeMenu }}" style="border: 1px solid rgba(255,255,255,0.16); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Services</a>
+          <a href="#contact" onClick="{{ closeMenu }}" style="background: #1D5FFA; color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px;">Contact us</a>
         </div>
       </div>
-    
+    </sc-if>
   </nav>
 
   <div style="max-width: 1280px; margin: 0 auto; border-left: 1px solid rgba(255,255,255,0.09); border-right: 1px solid rgba(255,255,255,0.09); background: #030304;">
@@ -445,16 +87,16 @@ main#top > header:first-of-type {
   <main id="top">
 
   <header style="position: relative; background: #1D5FFA; overflow: hidden; min-height: clamp(460px, 74vh, 720px); display: flex; flex-direction: column; justify-content: flex-end;">
-    <canvas id="cw-canvas-hero" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;"></canvas>
+    <canvas ref="{{ heroCanvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;"></canvas>
     <div style="position: relative; z-index: 1; padding: clamp(40px, 6vw, 72px) clamp(20px, 3.4vw, 44px) clamp(30px, 4vw, 48px);">
-      <h1 style="font-size: clamp(30px, 4.2vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin: 0; color: #ffffff; max-width: 22ch;">Agentic AI systems, engineered for production</h1>
+      <h1 data-comment-anchor="92286b8bf5-div" style="font-size: clamp(30px, 4.2vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin: 0; color: #ffffff; max-width: 22ch;">Agentic AI systems, engineered for production</h1>
       <p style="font-size: clamp(17px, 1.7vw, 24px); font-weight: 400; line-height: 1.35; letter-spacing: -0.01em; color: rgba(255,255,255,0.78); margin: 14px 0 0; max-width: 44ch;">Crestward Labs designs and ships multi-agent platforms that reason, act and deliver at real scale.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 9px; margin-top: clamp(26px, 3.4vw, 38px);">
-        <a class="cw-s3" href="#contact" style="display: inline-flex; align-items: center; gap: 22px; background: #000000; color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: opacity 140ms ease;">
+        <a href="#contact" style="display: inline-flex; align-items: center; gap: 22px; background: #000000; color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: opacity 140ms ease;" style-hover="opacity: 0.82; color: #ffffff;">
           Start a project
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <a class="cw-s4" href="#workflows" style="display: inline-flex; align-items: center; gap: 22px; border: 1px solid rgba(255,255,255,0.55); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;">
+        <a href="#workflows" style="display: inline-flex; align-items: center; gap: 22px; border: 1px solid rgba(255,255,255,0.55); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;" style-hover="background: rgba(255,255,255,0.14); color: #ffffff;">
           See the workflows
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
@@ -487,13 +129,13 @@ main#top > header:first-of-type {
         <span style="border: 1px solid rgba(255,255,255,0.16); font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 9px; color: rgba(255,255,255,0.55);">One canvas</span>
         <span style="border: 1px solid rgba(255,255,255,0.16); font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 9px; color: rgba(255,255,255,0.55);">Bring your own keys</span>
       </div>
-      <a class="cw-s5" href="https://flowstudio-ai.com" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 22px; background: #E8E3D9; color: #050508; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;">
+      <a href="https://flowstudio-ai.com" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 22px; background: #E8E3D9; color: #050508; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;" style-hover="background: #ffffff; color: #050508;" data-comment-anchor="7fb4ccc7b0-a">
         Visit flowstudio-ai.com
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
       </a>
     </div>
-    <div style="position: relative; overflow: hidden; background: #1D5FFA; min-height: 300px; display: flex; align-items: flex-end;">
-      <canvas id="cw-canvas-fs" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;"></canvas>
+    <div style="position: relative; overflow: hidden; background: #1D5FFA; min-height: 300px; display: flex; align-items: flex-end;" data-comment-anchor="8fce501cf2-div">
+      <canvas ref="{{ fsCanvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;"></canvas>
       <div style="position: relative; z-index: 1; padding: clamp(24px, 3vw, 40px); width: 100%;">
         <div style="font-size: clamp(34px, 5vw, 62px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.92; color: #E8E3D9;">Flow<br>Studio</div>
         <div style="margin-top: clamp(18px, 2.4vw, 30px); border-top: 1px solid rgba(255,255,255,0.4); padding-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.85);">
@@ -509,109 +151,29 @@ main#top > header:first-of-type {
       <div style="display: inline-block; align-self: flex-start; background: #000000; color: #ffffff; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 10px; margin-bottom: 20px;">The agentic shift</div>
       <h2 style="font-size: clamp(24px, 2.7vw, 36px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; margin: 0 0 18px; color: #ffffff; max-width: 18ch;">AI that doesn't just answer. It acts.</h2>
       <p style="font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.78); margin: 0 0 26px; max-width: 44ch;">Most AI tools respond to prompts. Agentic systems take a goal and execute: reasoning through steps, calling tools, handling failures, and delivering results. We design and ship systems that work autonomously at production scale.</p>
-      <a class="cw-s4" href="#contact" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 22px; border: 1px solid rgba(255,255,255,0.5); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;">
+      <a href="#contact" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 22px; border: 1px solid rgba(255,255,255,0.5); color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 12px 15px; white-space: nowrap; transition: background 140ms ease;" style-hover="background: rgba(255,255,255,0.14); color: #ffffff;">
         Contact us
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
       <div style="flex: 1; min-height: 40px;"></div>
     </div>
     <div style="border-left: 1px solid rgba(255,255,255,0.09); padding: clamp(30px, 3.4vw, 46px) clamp(20px, 3.4vw, 44px);">
-      
+      <sc-for list="{{ caps }}" as="c" hint-placeholder-count="6">
         <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
           <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
             <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
             <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
             <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
             <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">RAG</span>
+            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">{{ c.k }}</span>
           </div>
           <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">01</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Retrieval-augmented generation</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Agents search and retrieve from your private documents, databases and knowledge bases before answering, grounded in your data rather than the model’s.</p>
+            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">{{ c.no }}</div>
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">{{ c.name }}</div>
+            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">{{ c.v }}</p>
           </div>
         </div>
-      
-
-        <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
-          <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">MCP</span>
-          </div>
-          <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">02</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Model Context Protocol</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Secure, standardised tool and data access, so agents reach your systems without bespoke glue for every integration.</p>
-          </div>
-        </div>
-      
-
-        <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
-          <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">SSE</span>
-          </div>
-          <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">03</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Real-time streaming</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Agentic responses stream token by token to any client, with thinking steps surfaced as the work happens.</p>
-          </div>
-        </div>
-      
-
-        <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
-          <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">APIs</span>
-          </div>
-          <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">04</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Public agent APIs</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Agent capabilities exposed as clean, documented endpoints your team or your customers can build on.</p>
-          </div>
-        </div>
-      
-
-        <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
-          <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">LLMs</span>
-          </div>
-          <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">05</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Model-agnostic architecture</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Claude, GPT-4o and open-weight models chosen per task on cost, latency, capability and privacy, swappable without a rebuild.</p>
-          </div>
-        </div>
-      
-
-        <div style="display: grid; grid-template-columns: 84px 1fr; gap: clamp(16px, 2vw, 30px); padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.09); align-items: start;">
-          <div style="position: relative; width: 84px; height: 74px; display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; top: 0; right: 0; width: 9px; height: 9px; border-top: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; left: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-left: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; border-bottom: 1px solid rgba(255,255,255,0.35); border-right: 1px solid rgba(255,255,255,0.35);"></span>
-            <span style="font-size: clamp(14px, 1.5vw, 17px); font-weight: 700; letter-spacing: -0.01em; color: #ffffff;">MULTI</span>
-          </div>
-          <div style="padding-top: 4px;">
-            <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: #E8E3D9; margin-bottom: 8px;">06</div>
-            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; margin-bottom: 7px;">Multi-tenant platforms</div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 46ch;">Per-user agent isolation, guardrails and observability built in from day one, not retrofitted.</p>
-          </div>
-        </div>
-      
+      </sc-for>
     </div>
   </section>
 
@@ -626,7 +188,7 @@ main#top > header:first-of-type {
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); border-top: 1px solid rgba(255,255,255,0.09);">
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -662,7 +224,7 @@ main#top > header:first-of-type {
         <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0;">Each agent hands off to the next. Multi-stage reasoning, validation chains and document transformation workflows.</p>
       </div>
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -702,7 +264,7 @@ main#top > header:first-of-type {
         <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0;">Multiple agents run in parallel on split workloads. Maximum throughput for independent, time-sensitive tasks.</p>
       </div>
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -750,7 +312,7 @@ main#top > header:first-of-type {
         <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0;">A master agent breaks down the goal and assigns specialised sub-agents. Scales through layered delegation.</p>
       </div>
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -783,7 +345,7 @@ main#top > header:first-of-type {
         <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0;">Agents fire on webhooks, schedules, database events or API calls. Fully reactive, with zero polling overhead.</p>
       </div>
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -821,7 +383,7 @@ main#top > header:first-of-type {
         <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0;">Agents communicate directly, share context and negotiate outputs. Emergent intelligence, peer to peer.</p>
       </div>
 
-      <div class="cw-s6" style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;">
+      <div style="border-right: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); padding: clamp(22px, 2.4vw, 32px); background: transparent; transition: background 200ms ease;" style-hover="background: rgba(29,95,250,0.07);">
         <div style="position: relative; padding: 10px 0 14px; margin-bottom: 20px;">
           <span style="position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.3);"></span>
           <span style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3);"></span>
@@ -880,7 +442,7 @@ main#top > header:first-of-type {
     </div>
 
     <div style="position: relative; height: clamp(200px, 26vw, 320px); overflow: hidden; background: #030304;">
-      <canvas id="cw-canvas-flow" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
+      <canvas ref="{{ flowCanvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
       <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
         <div style="background: rgba(3,3,4,0.72); border: 1px solid rgba(255,255,255,0.16); padding: 10px 16px; text-align: center;">
           <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); line-height: 1.7;">Production-grade reliability<br>on real workloads, at scale</div>
@@ -889,20 +451,7 @@ main#top > header:first-of-type {
     </div>
 
     <div style="display: flex; justify-content: space-between; padding: 14px clamp(20px, 3.4vw, 44px); border-top: 1px solid rgba(255,255,255,0.09); border-bottom: 1px solid rgba(255,255,255,0.09); color: rgba(255,255,255,0.22); font-size: 13px; overflow: hidden;">
-      <span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
-<span>+</span>
+      <sc-for list="{{ crosshairs }}" as="x" hint-placeholder-count="14"><span>+</span></sc-for>
     </div>
   </section>
 
@@ -913,48 +462,20 @@ main#top > header:first-of-type {
       <p style="font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.5); margin: 0; max-width: 50ch;">A small, senior practice. Every engagement is led hands-on: you work directly with the engineers building your system, not through layers of management.</p>
     </div>
     <div style="display: flex; flex-direction: column; gap: 10px;">
-      
-        <a class="cw-s7" href="#contact" style="border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); padding: clamp(18px, 2.2vw, 26px); display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; transition: background 160ms ease, border-color 160ms ease; color: #ffffff;">
+      <sc-for list="{{ services }}" as="svc" hint-placeholder-count="3">
+        <a href="#contact" style="border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); padding: clamp(18px, 2.2vw, 26px); display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; transition: background 160ms ease, border-color 160ms ease; color: #ffffff;" style-hover="background: rgba(232,227,217,0.06); border-color: rgba(232,227,217,0.5); color: #ffffff;">
           <div>
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 11px;">
-              <span style="background: #1D5FFA; color: #ffffff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 8px;">01</span>
-              <h3 style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.02em; color: #ffffff; font-family: inherit; line-height: 1.55; margin: 0;">Agentic AI systems</h3>
+              <span style="background: #1D5FFA; color: #ffffff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 8px;">{{ svc.no }}</span>
+              <span style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.02em; color: #ffffff;">{{ svc.title }}</span>
             </div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 68ch;">Multi-agent architectures that reason, plan and act. LLM-powered agents with memory, tool access and orchestration, from retrieval pipelines to full agentic platforms exposed via public APIs.</p>
+            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 68ch;">{{ svc.desc }}</p>
           </div>
           <span style="width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
           </span>
         </a>
-      
-
-        <a class="cw-s7" href="#contact" style="border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); padding: clamp(18px, 2.2vw, 26px); display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; transition: background 160ms ease, border-color 160ms ease; color: #ffffff;">
-          <div>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 11px;">
-              <span style="background: #1D5FFA; color: #ffffff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 8px;">02</span>
-              <h3 style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.02em; color: #ffffff; font-family: inherit; line-height: 1.55; margin: 0;">Software engineering</h3>
-            </div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 68ch;">Full-stack product development with clean architecture at the core. Production-grade APIs and frontends built to scale and survive years of iteration.</p>
-          </div>
-          <span style="width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </span>
-        </a>
-      
-
-        <a class="cw-s7" href="#contact" style="border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); padding: clamp(18px, 2.2vw, 26px); display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; transition: background 160ms ease, border-color 160ms ease; color: #ffffff;">
-          <div>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 11px;">
-              <span style="background: #1D5FFA; color: #ffffff; font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 8px;">03</span>
-              <h3 style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.02em; color: #ffffff; font-family: inherit; line-height: 1.55; margin: 0;">AI workflow automation</h3>
-            </div>
-            <p style="font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); margin: 0; max-width: 68ch;">End-to-end automation of the work that slows teams down. Orchestrated agents, intelligent data pipelines and process flows that run reliably without supervision.</p>
-          </div>
-          <span style="width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </span>
-        </a>
-      
+      </sc-for>
     </div>
   </section>
 
@@ -964,34 +485,34 @@ main#top > header:first-of-type {
       <h2 style="font-size: clamp(26px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin: 0 0 18px; color: #ffffff; max-width: 16ch;">Have a project in mind?</h2>
       <p style="font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.55); margin: 0 0 30px; max-width: 42ch;">Tell us what you're building. We reply to every serious inquiry, usually within one business day.</p>
       <div style="border-top: 1px solid rgba(255,255,255,0.12); padding-top: 22px; display: flex; flex-direction: column; gap: 12px;">
-        <a class="cw-s8" href="mailto:hello@crestwardlabs.com?subject=Project%20inquiry" style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.015em; color: #ffffff;">hello@crestwardlabs.com</a>
+        <a href="mailto:hello@crestwardlabs.com?subject=Project%20inquiry" style="font-size: clamp(16px, 1.8vw, 21px); font-weight: 700; letter-spacing: -0.015em; color: #ffffff;" style-hover="color: #E8E3D9;">hello@crestwardlabs.com</a>
         <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4);">Available for remote contracts worldwide</div>
       </div>
     </div>
     <div style="border-left: 1px solid rgba(255,255,255,0.09); padding: clamp(30px, 4vw, 56px) clamp(20px, 3.4vw, 44px); background: rgba(255,255,255,0.015);">
-      
-        <div id="cw-form-sent" hidden style="display: flex; flex-direction: column; gap: 14px; min-height: 300px; justify-content: center;">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 14px; min-height: 300px; justify-content: center;">
           <div style="width: 34px; height: 34px; background: #1D5FFA; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
           <h3 style="font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0; color: #ffffff;">Your email is ready to send.</h3>
           <p style="font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.55); margin: 0;">We opened a pre-filled message in your mail client. If nothing appeared, write to hello@crestwardlabs.com directly.</p>
         </div>
-      
-      
-        <form id="cw-form-live" data-cw-submit style="display: flex; flex-direction: column; gap: 16px;">
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmit }}" style="display: flex; flex-direction: column; gap: 16px;">
           <div style="display: flex; flex-direction: column; gap: 7px;">
             <label for="v2-name" style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45);">Name</label>
-            <input class="cw-s9" id="v2-name" name="name" type="text" required="required" placeholder="Jane Doe" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%;">
+            <input id="v2-name" name="name" type="text" required="required" placeholder="Jane Doe" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%;" style-focus="border-color: #1D5FFA;">
           </div>
           <div style="display: flex; flex-direction: column; gap: 7px;">
             <label for="v2-email" style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45);">Email</label>
-            <input class="cw-s9" id="v2-email" name="email" type="email" required="required" placeholder="jane@company.com" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%;">
+            <input id="v2-email" name="email" type="email" required="required" placeholder="jane@company.com" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%;" style-focus="border-color: #1D5FFA;">
           </div>
           <div style="display: flex; flex-direction: column; gap: 7px;">
             <label for="v2-topic" style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45);">What do you need?</label>
             <div style="position: relative; display: block;">
-              <select class="cw-s9" id="v2-topic" name="topic" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: #0a0a0c; border: 1px solid rgba(255,255,255,0.16); padding: 12px 40px 12px 13px; outline: none; width: 100%; border-radius: 0; appearance: none; cursor: pointer;">
+              <select id="v2-topic" name="topic" style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; color: #ffffff; background: #0a0a0c; border: 1px solid rgba(255,255,255,0.16); padding: 12px 40px 12px 13px; outline: none; width: 100%; border-radius: 0; appearance: none; cursor: pointer;" style-focus="border-color: #1D5FFA;">
                 <option>Agentic AI systems</option>
                 <option>Software engineering</option>
                 <option>AI workflow automation</option>
@@ -1002,14 +523,14 @@ main#top > header:first-of-type {
           </div>
           <div style="display: flex; flex-direction: column; gap: 7px;">
             <label for="v2-msg" style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45);">Project</label>
-            <textarea class="cw-s9" id="v2-msg" name="message" rows="4" required="required" placeholder="A sentence or two on what you're building." style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; line-height: 1.5; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%; resize: vertical;"></textarea>
+            <textarea id="v2-msg" name="message" rows="4" required="required" placeholder="A sentence or two on what you're building." style="font-family: 'Archivo', system-ui, sans-serif; font-size: 14.5px; line-height: 1.5; color: #ffffff; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.16); padding: 12px 13px; outline: none; width: 100%; resize: vertical;" style-focus="border-color: #1D5FFA;"></textarea>
           </div>
-          <button class="cw-sa" type="submit" style="font-family: 'Archivo', system-ui, sans-serif; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: #1D5FFA; color: #ffffff; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 16px; white-space: nowrap; cursor: pointer; width: 100%; transition: background 140ms ease;">
+          <button type="submit" style="font-family: 'Archivo', system-ui, sans-serif; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: #1D5FFA; color: #ffffff; border: none; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 15px 16px; white-space: nowrap; cursor: pointer; width: 100%; transition: background 140ms ease;" style-hover="background: #1A4FD0;">
             Send inquiry
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </form>
-      
+      </sc-if>
     </div>
   </section>
 
@@ -1023,18 +544,405 @@ main#top > header:first-of-type {
         <span style="font-size: 13px; font-weight: 700; letter-spacing: -0.01em;">Crestward Labs</span>
       </a>
       <div style="display: flex; align-items: center; gap: 7px;">
-        <a class="cw-sb" href="https://www.linkedin.com/company/crestward-labs" target="_blank" rel="noopener" style="border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.7); font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 7px 10px;">LinkedIn</a>
-        <a class="cw-sb" href="https://www.youtube.com/@CrestwardLabs" target="_blank" rel="noopener" style="border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.7); font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 7px 10px;">YouTube</a>
+        <a href="https://www.linkedin.com/company/crestward-labs" target="_blank" rel="noopener" style="border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.7); font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 7px 10px;" style-hover="color: #ffffff; background: rgba(255,255,255,0.08);">LinkedIn</a>
+        <a href="https://www.youtube.com/@CrestwardLabs" target="_blank" rel="noopener" style="border: 1px solid rgba(255,255,255,0.16); color: rgba(255,255,255,0.7); font-size: 9.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 7px 10px;" style-hover="color: #ffffff; background: rgba(255,255,255,0.08);">YouTube</a>
       </div>
     </div>
     <div style="position: relative; height: clamp(120px, 16vw, 200px); background: #1D5FFA; overflow: hidden;">
-      <canvas id="cw-canvas-foot" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
+      <canvas ref="{{ footCanvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
     </div>
   </footer>
 
   </div>
 
-  <div id="cw-widgets"></div>
+  <div ref="{{ widgetRef }}"></div>
 </div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  navRef = React.createRef();
+  widgetRef = React.createRef();
+  heroCanvasRef = React.createRef();
+  fsCanvasRef = React.createRef();
+  flowCanvasRef = React.createRef();
+  footCanvasRef = React.createRef();
+  state = { isMobile: false, menuOpen: false, sent: false };
+
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 1000;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m, menuOpen: m ? this.state.menuOpen : false });
+      clearTimeout(this._resizeTimer);
+      this._resizeTimer = setTimeout(() => this.paint(), 150);
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+    this.paint();
+    this.mountWidgets();
+    this.mountReveal();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onVis);
+    document.removeEventListener('visibilitychange', this._onVis);
+    cancelAnimationFrame(this._raf);
+    if (this._io) this._io.disconnect();
+    if (this._revealIo) this._revealIo.disconnect();
+    clearTimeout(this._revealFallback);
+    clearTimeout(this._resizeTimer);
+  }
+
+  paint() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fit = (c) => {
+      const r = c.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      c.width = Math.max(1, Math.round(r.width * dpr));
+      c.height = Math.max(1, Math.round(r.height * dpr));
+      const ctx = c.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { ctx, w: r.width, h: r.height };
+    };
+
+    /* wave-line field on the blue panels */
+    const waves = (canvas, opts) => {
+      if (!canvas) return null;
+      const { ctx, w, h } = fit(canvas);
+      const count = Math.max(40, Math.round(w / (opts.spacing || 9)));
+      return (t) => {
+        ctx.clearRect(0, 0, w, h);
+        ctx.lineWidth = 1;
+        const sweep = ((t * 0.00007) % 1.4) - 0.2;
+        for (let i = 0; i < count; i++) {
+          const x0 = (i / (count - 1)) * w;
+          const p = i / count;
+          const near = Math.max(0, 1 - Math.abs(p - sweep) / 0.22);
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + (0.12 + 0.2 * Math.abs(Math.sin(p * Math.PI * 2 + t * 0.00016)) + 0.5 * near * near) + ')';
+          for (let y = -10; y <= h + 10; y += 8) {
+            const q = y / h;
+            const amp = (opts.amp || 34) * (0.45 + 0.75 * Math.sin(p * Math.PI));
+            const x = x0
+              + Math.sin(q * 2.6 + p * 5.4 + t * 0.00022) * amp
+              + Math.sin(q * 5.1 - p * 2.2 + t * 0.00013) * amp * 0.4;
+            if (y <= -10) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+      };
+    };
+
+    /* converging streak field for the mid band */
+    const flow = (canvas) => {
+      if (!canvas) return null;
+      const { ctx, w, h } = fit(canvas);
+      const N = Math.round(Math.min(190, Math.max(70, w / 6)));
+      const seeds = [];
+      for (let i = 0; i < N; i++) seeds.push({ o: (i / N) * 2 - 1, j: Math.random() * 0.5 + 0.5, s: Math.random() });
+      return (t) => {
+        ctx.clearRect(0, 0, w, h);
+        const cx = w * 0.5, cy = h * 0.5;
+        ctx.lineWidth = 1;
+        for (const sd of seeds) {
+          ctx.beginPath();
+          const drift = ((t * 0.00004 * sd.j) + sd.s) % 1;
+          for (let k = 0; k <= 36; k++) {
+            const u = k / 36;
+            const x = u * w;
+            const d = Math.abs(x - cx) / cx;
+            const spread = Math.pow(d, 1.9);
+            const wob = Math.sin(u * 7 + drift * Math.PI * 2 + sd.o * 3) * 6 * spread;
+            const y = cy + sd.o * (h * 0.52) * spread + wob;
+            if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          const near = 1 - Math.abs(sd.o);
+          ctx.strokeStyle = 'rgba(' + (110 + Math.round(80 * near)) + ',' + (150 + Math.round(80 * near)) + ',255,' + (0.10 + 0.32 * (0.4 + 0.6 * Math.abs(Math.sin(drift * Math.PI * 2)))) + ')';
+          ctx.stroke();
+        }
+      };
+    };
+
+    const nodes = [this.heroCanvasRef.current, this.flowCanvasRef.current, this.footCanvasRef.current, this.fsCanvasRef.current];
+    const drawers = [waves(nodes[0], { spacing: 10, amp: 40 }), flow(nodes[1]), waves(nodes[2], { spacing: 8, amp: 26 }), waves(nodes[3], { spacing: 11, amp: 30 })];
+    const items = drawers.map((d, i) => (d ? { draw: d, node: nodes[i], visible: true } : null)).filter(Boolean);
+    cancelAnimationFrame(this._raf);
+    if (reduce || !items.length) { items.forEach(it => it.draw(0)); return; }
+
+    /* only paint canvases that are actually on screen */
+    if (this._io) this._io.disconnect();
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          const it = items.find(x => x.node === e.target);
+          if (it) it.visible = e.isIntersecting;
+        });
+      }, { rootMargin: '120px' });
+      items.forEach(it => this._io.observe(it.node));
+    }
+
+    const FRAME = 1000 / 30;
+    const start = performance.now();
+    let last = -FRAME;
+    const loop = (now) => {
+      this._raf = requestAnimationFrame(loop);
+      if (document.hidden) return;
+      if (now - last < FRAME) return;
+      last = now;
+      const t = now - start;
+      for (const it of items) if (it.visible) it.draw(t);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+
+  mountReveal() {
+    const host = document.querySelector('main#top');
+    if (!host || !('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const targets = Array.from(host.querySelectorAll(':scope > section > div')).filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.height > 60;
+    });
+    const seen = new Set();
+    const hidden = [];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting || seen.has(e.target)) return;
+        seen.add(e.target);
+        io.unobserve(e.target);
+        e.target.style.transition = 'opacity 620ms cubic-bezier(0.16,1,0.3,1), transform 620ms cubic-bezier(0.16,1,0.3,1)';
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    targets.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.willChange = 'opacity, transform';
+      io.observe(el);
+      hidden.push(el);
+    });
+    this._revealIo = io;
+    /* safety net: never leave content stuck invisible */
+    this._revealFallback = setTimeout(() => {
+      hidden.forEach((el) => {
+        if (el.style.opacity !== '0') return;
+        el.style.transition = 'opacity 400ms ease, transform 400ms ease';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    }, 6000);
+  }
+
+  mountWidgets() {
+    const host = this.widgetRef.current;
+    if (!host || host.dataset.mounted) return;
+    host.dataset.mounted = '1';
+
+    const ACCENT = '#1D5FFA';
+    const el = (tag, css, html) => { const n = document.createElement(tag); if (css) n.style.cssText = css; if (html != null) n.innerHTML = html; return n; };
+
+    const banner = el('div', 'position:fixed;bottom:0;left:0;right:0;z-index:9998;background:#000;color:#fff;border-top:1px solid ' + ACCENT + ';padding:15px clamp(18px,4vw,44px);display:none;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;font-family:Archivo,system-ui,sans-serif;');
+    banner.innerHTML = '<p style="margin:0;font-size:12.5px;line-height:1.5;color:rgba(255,255,255,0.6);max-width:62ch;">We use cookies to understand how visitors use this site and improve your experience. <a href="/privacy" style="color:#8fb2ff;text-decoration:underline;">Learn more</a></p>';
+    const bActions = el('div', 'display:flex;gap:8px;flex-shrink:0;');
+    const decline = el('button', 'font-family:inherit;background:transparent;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:10px 15px;cursor:pointer;', 'Decline');
+    const accept = el('button', 'font-family:inherit;background:' + ACCENT + ';border:1px solid ' + ACCENT + ';color:#fff;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:10px 17px;cursor:pointer;', 'Accept');
+    bActions.append(decline, accept);
+    banner.appendChild(bActions);
+    host.appendChild(banner);
+
+    const btn = el('button', 'position:fixed;bottom:24px;right:24px;z-index:9997;width:54px;height:54px;background:' + ACCENT + ';border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(29,95,250,0.45);transition:transform 160ms ease,background 160ms ease;');
+    btn.setAttribute('aria-label', 'Open chat');
+    btn.innerHTML = '<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    btn.addEventListener('mouseenter', () => { btn.style.transform = 'translateY(-2px)'; btn.style.background = '#1A4FD0'; });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = 'none'; btn.style.background = ACCENT; });
+    host.appendChild(btn);
+
+    const narrow = window.innerWidth <= 520;
+    const panel = el('div', 'position:fixed;' + (narrow ? 'bottom:0;right:0;left:0;width:100%;height:78vh;' : 'bottom:94px;right:24px;width:372px;height:548px;') + 'z-index:9996;background:#070709;border:1px solid rgba(255,255,255,0.18);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 26px 64px rgba(0,0,0,0.7);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity 200ms ease,transform 200ms ease;font-family:Archivo,system-ui,sans-serif;');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Crestward Assistant');
+    panel.innerHTML =
+      '<div style="padding:13px 15px;background:' + ACCENT + ';display:flex;align-items:center;gap:10px;flex-shrink:0;">' +
+        '<img src="logo-icon.png" alt="" style="width:26px;height:26px;object-fit:contain;background:#fff;padding:3px;">' +
+        '<div style="flex:1;"><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#fff;">Crestward Assistant</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,0.78);">Ask anything about our services</div></div>' +
+        '<button data-close style="background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,0.85);display:flex;padding:4px;" aria-label="Close chat">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+      '</div>' +
+      '<div data-messages style="flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;background:#050506;"></div>' +
+      '<div style="padding:11px;background:#070709;border-top:1px solid rgba(255,255,255,0.14);display:flex;gap:8px;align-items:flex-end;flex-shrink:0;">' +
+        '<textarea data-input rows="1" placeholder="Ask about our services…" aria-label="Message" style="flex:1;font-family:Archivo,system-ui,sans-serif;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.16);padding:10px 12px;color:#fff;font-size:13.5px;line-height:1.5;resize:none;outline:none;max-height:104px;"></textarea>' +
+        '<button data-send aria-label="Send" style="width:40px;height:40px;background:' + ACCENT + ';border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>' +
+      '</div>' +
+      '<div style="text-align:center;padding:7px 0 9px;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);background:#070709;">Powered by Crestward Labs</div>';
+    host.appendChild(panel);
+
+    const messages = panel.querySelector('[data-messages]');
+    const input = panel.querySelector('[data-input]');
+    const sendBtn = panel.querySelector('[data-send]');
+
+    const API_BASE = 'https://agenthub.smartschema.io/api';
+    const API_KEY = 'sk-aJPUyPB7KeBxxA0DW7pv1AQnaHQBfb0IqnwFj0e6RyY';
+    let sessionId = null, isStreaming = false, opened = false;
+
+    const md = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code style="background:rgba(29,95,250,0.28);padding:1px 5px;font-size:12px;">$1</code>')
+      .replace(/^[-*] (.+)$/gm, '<div style="padding-left:12px;margin:2px 0;">• $1</div>')
+      .replace(/\n/g, '<br>');
+    const ts = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    function addMsg(role, text) {
+      const wrap = el('div', 'display:flex;flex-direction:column;max-width:86%;animation:cw-msg-in 200ms ease both;' + (role === 'user' ? 'align-self:flex-end;align-items:flex-end;' : 'align-self:flex-start;align-items:flex-start;'));
+      const bubble = el('div', 'padding:10px 13px;font-size:13.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;' + (role === 'user' ? 'background:' + ACCENT + ';color:#fff;' : 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.12);'));
+      if (role === 'assistant' && text) bubble.innerHTML = md(text); else bubble.textContent = text;
+      const time = el('div', 'font-size:9px;font-weight:700;letter-spacing:0.14em;color:rgba(255,255,255,0.28);margin-top:5px;', ts());
+      wrap.append(bubble, time);
+      messages.appendChild(wrap);
+      messages.scrollTop = messages.scrollHeight;
+      return bubble;
+    }
+    function showDots() {
+      const d = el('div', 'display:flex;gap:4px;padding:13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);align-self:flex-start;',
+        '<span style="width:6px;height:6px;background:' + ACCENT + ';animation:cw-dot 1.2s ease-in-out infinite;"></span>' +
+        '<span style="width:6px;height:6px;background:' + ACCENT + ';animation:cw-dot 1.2s ease-in-out 0.2s infinite;"></span>' +
+        '<span style="width:6px;height:6px;background:' + ACCENT + ';animation:cw-dot 1.2s ease-in-out 0.4s infinite;"></span>');
+      messages.appendChild(d);
+      messages.scrollTop = messages.scrollHeight;
+      return d;
+    }
+
+    async function send(text) {
+      if (isStreaming) return;
+      isStreaming = true; sendBtn.disabled = true;
+      if (!sessionId) {
+        try {
+          const r = await fetch(API_BASE + '/public/sessions', { method: 'POST', headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'Website chat' }) });
+          sessionId = (await r.json()).id;
+        } catch (e) {
+          addMsg('assistant', 'Connection error. Please email hello@crestwardlabs.com directly.');
+          isStreaming = false; sendBtn.disabled = false; return;
+        }
+      }
+      addMsg('user', text);
+      const dots = showDots();
+      let bubble = null, full = '';
+      try {
+        const res = await fetch(API_BASE + '/public/sessions/' + sessionId + '/stream', { method: 'POST', headers: { 'Authorization': 'Bearer ' + API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text, filter_vars: {} }) });
+        const reader = res.body.getReader();
+        const dec = new TextDecoder();
+        let buf = '';
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value);
+          const lines = buf.split('\n');
+          buf = lines.pop() || '';
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            let ev; try { ev = JSON.parse(line.slice(6)); } catch (err) { continue; }
+            if (ev.type === 'delta') {
+              if (!bubble) { dots.remove(); bubble = addMsg('assistant', ''); }
+              full += ev.content;
+              bubble.innerHTML = md(full);
+              messages.scrollTop = messages.scrollHeight;
+            }
+            if (ev.type === 'done' || ev.type === 'error') {
+              dots.remove();
+              if (ev.type === 'error' && !bubble) addMsg('assistant', 'Something went wrong. Please reach out at hello@crestwardlabs.com');
+            }
+          }
+        }
+        dots.remove();
+      } catch (e) {
+        dots.remove();
+        addMsg('assistant', 'Connection lost. Please email hello@crestwardlabs.com directly.');
+      }
+      isStreaming = false; sendBtn.disabled = false; input.focus();
+    }
+
+    const openPanel = () => {
+      panel.style.opacity = '1';
+      panel.style.transform = 'none';
+      panel.style.pointerEvents = 'all';
+      btn.style.display = 'none';
+      if (!opened) { opened = true; addMsg('assistant', "Hi! I'm the Crestward Assistant. Ask me anything about **agentic AI systems**, **software engineering**, or **AI workflow automation**."); }
+      input.focus();
+    };
+    const closePanel = () => {
+      panel.style.opacity = '0';
+      panel.style.transform = 'translateY(14px)';
+      panel.style.pointerEvents = 'none';
+      btn.style.display = 'flex';
+    };
+    btn.addEventListener('click', openPanel);
+    panel.querySelector('[data-close]').addEventListener('click', closePanel);
+    sendBtn.addEventListener('click', () => {
+      const t = input.value.trim();
+      if (!t) return;
+      input.value = ''; input.style.height = 'auto';
+      send(t);
+    });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendBtn.click(); } });
+    input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 104) + 'px'; });
+
+    const offset = () => {
+      const base = window.innerWidth <= 520 ? 16 : 24;
+      btn.style.bottom = (banner.style.display === 'flex' ? base + banner.offsetHeight + 8 : base) + 'px';
+    };
+    let consent = null;
+    try { consent = localStorage.getItem('cw_cookie_consent'); } catch (e) { consent = 'declined'; }
+    if (!consent) { banner.style.display = 'flex'; setTimeout(offset, 60); }
+    window.addEventListener('resize', offset);
+    const setConsent = (v) => { try { localStorage.setItem('cw_cookie_consent', v); } catch (e) {} banner.style.display = 'none'; offset(); };
+    accept.addEventListener('click', () => setConsent('accepted'));
+    decline.addEventListener('click', () => setConsent('declined'));
+  }
+
+  renderVals() {
+    return {
+      navRef: this.navRef,
+      widgetRef: this.widgetRef,
+      heroCanvasRef: this.heroCanvasRef,
+      fsCanvasRef: this.fsCanvasRef,
+      flowCanvasRef: this.flowCanvasRef,
+      footCanvasRef: this.footCanvasRef,
+      showLinks: !this.state.isMobile,
+      showBurger: this.state.isMobile,
+      menuPanelOpen: this.state.isMobile && this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      crosshairs: [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+      onSubmit: (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const g = (n) => (f.elements[n] && f.elements[n].value ? f.elements[n].value : '');
+        const body = 'Name: ' + g('name') + '\nEmail: ' + g('email') + '\nNeed: ' + g('topic') + '\n\n' + g('message');
+        window.location.href = 'mailto:hello@crestwardlabs.com?subject=' + encodeURIComponent('Project inquiry: ' + g('topic')) + '&body=' + encodeURIComponent(body);
+        this.setState({ sent: true });
+      },
+      caps: [
+        { no: '01', k: 'RAG', name: 'Retrieval-augmented generation', v: 'Agents search and retrieve from your private documents, databases and knowledge bases before answering, grounded in your data rather than the model\u2019s.' },
+        { no: '02', k: 'MCP', name: 'Model Context Protocol', v: 'Secure, standardised tool and data access, so agents reach your systems without bespoke glue for every integration.' },
+        { no: '03', k: 'SSE', name: 'Real-time streaming', v: 'Agentic responses stream token by token to any client, with thinking steps surfaced as the work happens.' },
+        { no: '04', k: 'APIs', name: 'Public agent APIs', v: 'Agent capabilities exposed as clean, documented endpoints your team or your customers can build on.' },
+        { no: '05', k: 'LLMs', name: 'Model-agnostic architecture', v: 'Claude, GPT-4o and open-weight models chosen per task on cost, latency, capability and privacy, swappable without a rebuild.' },
+        { no: '06', k: 'MULTI', name: 'Multi-tenant platforms', v: 'Per-user agent isolation, guardrails and observability built in from day one, not retrofitted.' }
+      ],
+      services: [
+        { no: '01', title: 'Agentic AI systems', desc: 'Multi-agent architectures that reason, plan and act. LLM-powered agents with memory, tool access and orchestration, from retrieval pipelines to full agentic platforms exposed via public APIs.' },
+        { no: '02', title: 'Software engineering', desc: 'Full-stack product development with clean architecture at the core. Production-grade APIs and frontends built to scale and survive years of iteration.' },
+        { no: '03', title: 'AI workflow automation', desc: 'End-to-end automation of the work that slows teams down. Orchestrated agents, intelligent data pipelines and process flows that run reliably without supervision.' }
+      ]
+    };
+  }
+}
+</script>
 </body>
 </html>

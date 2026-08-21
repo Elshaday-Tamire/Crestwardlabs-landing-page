@@ -21,6 +21,10 @@ Crestward Labs has expertise in every major multi-agent workflow pattern:
 - **Collaborative**: Agents communicate directly as peers, sharing context and negotiating outputs.
 - **Hybrid**: Any combination of the above patterns within a single workflow.
 
+## FlowStudio
+
+FlowStudio (https://flowstudio-ai.com) is Crestward Labs' own agent workflow builder, currently in early access. Agents, tools, and workflows come together on a single canvas — from a simple automation to a full agent team. Supports all six workflow modes, one canvas, and bring-your-own model keys.
+
 ## Technology Stack
 
 Python, FastAPI, TypeScript, Angular, PostgreSQL, Azure, Claude API (Anthropic), OpenAI API, RAG pipelines, MCP (Model Context Protocol), SSE streaming, multi-tenant SaaS architecture.
