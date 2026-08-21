@@ -330,6 +330,14 @@
         encodeURIComponent("Project inquiry: " + get("topic")) +
         "&body=" +
         encodeURIComponent(body);
+      /* This path never reached the backend, so the generic success copy
+         would be inaccurate — swap in the mailto-specific wording. */
+      var title = $("cw-form-sent-title"),
+        msg = $("cw-form-sent-body");
+      if (title) title.textContent = "Your email is ready to send.";
+      if (msg)
+        msg.textContent =
+          "We opened a pre-filled message in your mail client. If nothing appeared, write to hello@crestwardlabs.com directly.";
       showSent();
     };
 

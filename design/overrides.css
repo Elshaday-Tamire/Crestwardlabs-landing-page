@@ -63,7 +63,7 @@ body { overflow-x: clip; }
    sitting in a column with air either side, at ~89% of the viewport, rather
    than pressed edge to edge. THIS IS THE DIAL: lower it to make the site
    bigger, raise it to make it smaller. */
-:root { --cw-canvas: 1440px; }
+:root { --cw-canvas: 1920px; }
 
 :root { --cw-zoom: 1; }
 @media (min-width: 1500px) { :root { --cw-zoom: 1.05; } }
