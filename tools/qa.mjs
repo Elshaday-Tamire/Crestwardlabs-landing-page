@@ -45,17 +45,31 @@ ok(await page.evaluate(()=>localStorage.getItem('cw_cookie_consent'))==='accepte
 ok(reqs.some(u=>/googletagmanager/.test(u)), 'GA loaded after Accept');
 ok(!(await banner.isVisible()), 'banner dismissed after Accept');
 
-/* chat */
+/* chat — same rule as the contact form: never let a real message reach a
+   real (or future-real) Worker during automated testing. */
+await page.route(/workers\.dev/, (route) => route.abort('failed'));
 await page.locator('button[aria-label="Open chat"]').click();
 await page.waitForTimeout(500);
 ok(await page.locator('[role="dialog"][aria-label="Crestward Assistant"]').isVisible(), 'chat panel opens');
 ok(await page.locator('[role="dialog"] textarea').isVisible(), 'chat input present');
 ok(await page.locator('[role="dialog"] button[aria-label="Dictate message"]').count()===1, 'mic button present (restored)');
 ok((await page.locator('[role="dialog"]').innerText()).includes('Crestward Assistant'), 'welcome/header rendered');
+await page.locator('[role="dialog"] textarea').fill('hello');
+await page.locator('[role="dialog"] [data-send]').click();
+await page.waitForTimeout(600);
+ok((await page.locator('[role="dialog"]').innerText()).includes('hello@crestwardlabs.com'), 'chat degrades to an email pointer when the Worker is unreachable, not a silent hang');
+await page.unroute(/workers\.dev/);
 await page.locator('[role="dialog"] button[aria-label="Close chat"]').click();
 await page.waitForTimeout(400);
 
-/* contact form — honeypot + placeholder-endpoint fallback */
+/* contact form — honeypot + resilient fallback.
+   CONTACT_ENDPOINT is a real, live, deployed Worker now (not a placeholder) —
+   so this suite must never let a real request reach it, or every CI run
+   would send a real email through your real SMTP account. Abort every
+   request to *.workers.dev regardless of what's baked into the constant at
+   the time; this also makes the test MORE meaningful, since it now exercises
+   the actual resilience path (network failure -> mailto fallback) rather
+   than only the narrow "not deployed yet" placeholder-skip branch. */
 {
   const hp = page.locator('input[name="company"]');
   ok(await hp.count() === 1, 'honeypot field injected into the form');
@@ -67,14 +81,17 @@ await page.waitForTimeout(400);
   ok(hpStyle.tabIndex === -1, 'honeypot is not tabbable');
   ok(hpStyle.ariaHidden === 'true', 'honeypot is aria-hidden');
 
-  const fetchesToWorker = [];
-  page.on('request', (r) => { if (r.url().indexOf('workers.dev') !== -1) fetchesToWorker.push(r.url()); });
+  let fetchAttempted = false;
+  await page.route(/workers\.dev/, (route) => { fetchAttempted = true; route.abort('failed'); });
+
   await page.fill('#v2-name','Jane'); await page.fill('#v2-email','jane@x.com'); await page.fill('#v2-msg','Hello');
   await page.locator('button[type="submit"]').click();
-  await page.waitForTimeout(400);
-  ok(fetchesToWorker.length === 0, 'no fetch() attempted while CONTACT_ENDPOINT is still the placeholder');
-  ok(await page.locator('#cw-form-sent').isVisible(), 'falls back to the sent state via mailto');
+  await page.waitForTimeout(600);
+  ok(fetchAttempted, 'form actually attempts to reach CONTACT_ENDPOINT');
+  ok(await page.locator('#cw-form-sent').isVisible(), 'falls back to the sent state when the Worker is unreachable');
   ok(!(await page.locator('#cw-form-live').isVisible()), 'form hidden after submit');
+
+  await page.unroute(/workers\.dev/);
 }
 ok(await page.evaluate(()=>document.querySelectorAll('nav .cw-nav-desktop').length===1 && getComputedStyle(document.querySelector('.cw-nav-desktop')).display==='flex'), 'desktop nav links visible at 1280');
 ok(await page.evaluate(()=>getComputedStyle(document.querySelector('.cw-nav-burger')).display==='none'), 'burger hidden at 1280');
@@ -134,6 +151,19 @@ for (const w of [360, 768, 1100, 1280]) {
   const z = await p2.evaluate(() => parseFloat(getComputedStyle(document.documentElement).zoom));
   ok(z === 1, `${w}px is not scaled (zoom ${z})`);
   await c.close();
+}
+
+/* regression guard: no hardcoded secret ever ships in the shipped output again */
+{
+  const appJs = await (await fetch('http://localhost:8861/assets/app.js')).text();
+  const indexHtml = await (await fetch('http://localhost:8861/')).text();
+  const leakedKeyPattern = /sk-[A-Za-z0-9]{20,}/;
+  ok(!leakedKeyPattern.test(appJs), 'no API-key-shaped string in assets/app.js');
+  ok(!leakedKeyPattern.test(indexHtml), 'no API-key-shaped string in index.html');
+  // Not "no mention of agenthub" — an explanatory comment naming it is fine
+  // and expected. What must be true is that the chat widget's actual fetch
+  // calls target CHAT_ENDPOINT, not a hardcoded upstream URL + key.
+  ok((appJs.match(/fetch\(CHAT_ENDPOINT/g) || []).length === 2, 'both chat fetch() calls go through CHAT_ENDPOINT, not agenthub directly');
 }
 
 await br.close(); server.close();

@@ -18,7 +18,11 @@ import { WorkerMailer } from "worker-mailer";
    ever need to test locally again (`python3 -m http.server 8000` from the
    repo root -> http://localhost:8000, matching whatever port you serve on),
    then remove it again afterward — same as this one just was. */
-const ALLOWED_ORIGINS = ["https://crestwardlabs.com"];
+/* localhost and 127.0.0.1 are different origins to a browser even though
+   they're the same machine — both are here since `python3 -m http.server`
+   answers to either depending on what you type in the address bar. Remove
+   both once done testing locally, same as before. */
+const ALLOWED_ORIGINS = ["https://crestwardlabs.com", "http://localhost:8000", "http://127.0.0.1:8000"];
 
 const LIMITS = { name: 100, email: 200, topic: 100, message: 5000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

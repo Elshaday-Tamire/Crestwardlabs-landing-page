@@ -12,5 +12,5 @@ compatibility_flags = ["nodejs_compat"]
 # `wrangler kv namespace create` prints the real one to paste in here. Not a
 # secret: a KV namespace id only identifies the store, it grants no access.
 [[kv_namespaces]]
-binding = "crestward_contact_ratelimit"
+binding = "RATE_LIMIT_KV"
 id = "f7195c8cb4d743c0b2ddccd7f21be0ac"
